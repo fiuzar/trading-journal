@@ -1,20 +1,26 @@
-// import { NextResponse } from "next/server";
-// import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 
-// export async function middleware(request) {
-//     const cookieStore = await cookies();
-//     const isAdmin = await cookieStore.get("fiuzar_admin");
+export async function middleware(request) {
+  const session = await auth(); // Get the session for the current request
+  const pathname = request.nextUrl.pathname;
 
-//     if (!isAdmin) {
-//         // Redirect to login if not authenticated
-//         return NextResponse.redirect(new URL("/login", request.url));
-//     }
-//     // Allow access if cookie is present
-//     return NextResponse.next();
-// }
+  // Protect /app routes
+  if (pathname.startsWith("/app")) {
+    if (!session) {
+      // Redirect unauthenticated users to /login
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
 
-// export const config = {
-//     matcher: ["/admin/:path*"]
-// };
+  // Optionally prevent logged-in users from accessing login/register again
+  if ((pathname === "/login" || pathname === "/register") && session) {
+    return NextResponse.redirect(new URL("/app", request.url));
+  }
 
-export { auth as middleware } from "@/auth"
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/app/:path*", "/login", "/register"],
+};

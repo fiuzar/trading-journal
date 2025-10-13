@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
@@ -21,6 +23,8 @@ import {
   DropdownMenuSubContent
 } from "../ui/dropdown-menu"
 import { IconAffiliate } from "@tabler/icons-react"
+
+import {signOut} from "next-auth/react"
 
 export function SiteHeader() {
   return (
@@ -53,9 +57,9 @@ export function SiteHeader() {
                 <IconAffiliate /> Affiliate
               </Link>
               <DropdownMenuSeparator />
-              <Link href={"//logout"} className="flex gap-2 mb-1 hover:bg-zinc-800 px-2 py-1 rounded-md bg-red-900">
+              <Button onClick={() => signOut({redirectTo: "/login"})} className="flex gap-2 mb-1 hover:bg-zinc-800 px-2 py-1 rounded-md bg-red-700 w-full text-white">
                 <LogOutIcon /> Logout
-              </Link>
+              </Button>
             </DropdownMenuContent>
           </DropdownMenu>
           {/* <Link href="/app/profile">

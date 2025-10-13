@@ -62,6 +62,7 @@ export function RegisterForm({
     }
 
     async function handle_submit() {
+        setIsDisabled(true)
         const { success, message } = await otpVerification(email, otp)
 
         if (success) {
@@ -72,6 +73,7 @@ export function RegisterForm({
         else {
             setSuccess(false)
             setMessage(message)
+            setIsDisabled(false)
         }
 
         setTimeout(() => {

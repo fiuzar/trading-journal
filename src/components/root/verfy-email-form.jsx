@@ -56,6 +56,7 @@ export function VerifyEmailForm({
     }, [name, password, email, confirmPassword])
 
     async function handle_submit() {
+        setIsDisabled(true)
         const { success, message } = await ContinueSignup(name, email, password, confirmPassword)
 
         if (success) {
@@ -67,6 +68,7 @@ export function VerifyEmailForm({
         else {
             setSuccess(false)
             setMessage(message)
+            setIsDisabled(false)
         }
 
         setTimeout(() => {

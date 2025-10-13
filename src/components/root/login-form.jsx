@@ -12,11 +12,51 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+
+import { useEffect, useState } from "react"
+
+import { credentialsAction } from "@/server-actions/authentication"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
 	className,
 	...props
 }) {
+
+	const router = useRouter()
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+	const [isDisabled, setIsDisabled] = useState(false)
+
+	const [success, setSuccess] = useState(false)
+	const [message, setMessage] = useState("")
+
+	useEffect(() => {
+		if (email && password) {
+			setIsDisabled(false)
+		} else {
+			setIsDisabled(true)
+		}
+	}, [email, password]) // Ensure dependencies are consistent and properly defined
+
+	async function onSubmit() {
+		setIsDisabled(true)
+
+		const { success, message } = await credentialsAction(email, password)
+
+		if (success) {
+			router.push("/app")
+			setSuccess(true)
+			setMessage("Login successful! Redirecting...")
+		} else {
+			setIsDisabled(false)
+			setSuccess(false)
+			setMessage(message)
+		}
+
+	}
+
 	return (
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
 			<Card>
@@ -27,15 +67,27 @@ export function LoginForm({
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<form>
+					<div>
 						<div className="grid gap-6">
 							<div className="grid gap-6">
+
+								{message && (
+                                    <Alert variant={success ? "success" : "destructive"}>
+                                        <AlertTitle>
+                                            {success ? "Success" : "Error"}
+                                        </AlertTitle>
+                                        <AlertDescription>{message}</AlertDescription>
+                                    </Alert>
+                                )}
+
 								<div className="grid gap-3">
 									<Label htmlFor="email">Email</Label>
 									<Input
 										id="email"
 										type="email"
 										placeholder="m@gmail.com"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 										required
 									/>
 								</div>
@@ -43,15 +95,16 @@ export function LoginForm({
 									<div className="flex items-center">
 										<Label htmlFor="password">Password</Label>
 										<Link
-											href="/forgot-password"
+											// href="/forgot-password"
+											href={`#`}
 											className="ml-auto text-sm underline-offset-4 hover:underline"
 										>
 											Forgot your password?
 										</Link>
 									</div>
-									<Input id="password" type="password" required />
+									<Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 								</div>
-								<Button type="submit" className="w-full bg-green-800 text-white cursor-pointer hover:text-black">
+								<Button disabled={isDisabled} onClick={onSubmit} type="submit" className="w-full bg-green-800 text-white cursor-pointer hover:text-black">
 									Login
 								</Button>
 							</div>
@@ -79,7 +132,7 @@ export function LoginForm({
 								</Link>
 							</div>
 						</div>
-					</form>
+					</div>
 				</CardContent>
 			</Card>
 			<div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

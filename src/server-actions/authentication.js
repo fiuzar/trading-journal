@@ -4,29 +4,41 @@ import { signIn } from "@/auth"
 import { query } from "@/dbh"
 import nodemailer from "nodemailer"
 import bcrypt from "bcryptjs"
+import { redirect } from "next/navigation"
 
 export async function googleSignIn() {
     await signIn("google", "/api/auth/check-user")
 }
 
-export async function credentialsAction(email, password) {
+export async function credentialsAction(main_email, main_password) {
+
+    const email = main_email.trim()
+    const password = main_password.trim()
 
     if (!email || !password) {
         return { message: "Invalid details, please try again later" }
     }
 
-    const formData = new FormData()
-    formData.append("email", email)
-    formData.append("password", password)
+    const { success, user } = await processLogin(email, password)
 
-    try {
-        await signIn("credentials", formData);
-    } catch (err) {
-        return { message: "Invalid details, please try again later" }
+    if (success) {
+        try {
+            await signIn("credentials", { id: user.id, name: user.name, email, redirect: false })
+
+            return {success: true, message: "Login successful, redirecting ..."}
+
+        } catch (error) {
+            return { success: false, message: "Invalid email/password" }
+        }
+    }
+    else {
+        return { success: false, message: "Invalid email/password" }
     }
 }
 
-export async function FirstSignup(email) {
+export async function FirstSignup(main_email) {
+
+    const email = main_email.trim()
 
     if (!email) {
         return { message: "Please input an email address" }
@@ -64,8 +76,8 @@ export async function FirstSignup(email) {
     }
 }
 
-export async function otpVerification(email, pin) {
-
+export async function otpVerification(main_email, pin) {
+    const email = main_email.trim()
     let queryText
     let result;
 
@@ -129,27 +141,39 @@ export async function ContinueSignup(main_name, main_email, password, confirm_pa
     const name = main_name.trim()
     const email = main_email.trim()
 
-    if(!name || !email || !password || !confirm_password){
-        return {success: false, message: "Empty fields, please fill in the blank spaces"}
+    if (!name || !email || !password || !confirm_password) {
+        return { success: false, message: "Empty fields, please fill in the blank spaces" }
     }
 
-    if(confirm_password !== password){
-        return {success: false, message: "Your password do not match"}
+    if (confirm_password !== password) {
+        return { success: false, message: "Your password do not match" }
     }
 
     try {
 
-        const checkEmail = "SELECT * FROM trading_journal_users"
-        const query_email = await query(checkEmail)
-        const no_email = checkEmail.rows[0]        
+        const checkEmail = "SELECT * FROM trading_journal_users WHERE email = $1"
+        const query_email = await query(checkEmail, [email])
+        const no_email = query_email.rows[0]
 
-        console.log(no_email)
+        if (!no_email) {
+            return { success: false, message: "This email does not exist, please verify it first" }
+        }
 
-        return {success: false, message: "essds"}
-        
+        if (no_email.password !== "none") {
+            return { success: false, message: "This email already exists, please use a different email" }
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        const updateUser = "UPDATE trading_journal_users SET name = $1, password = $2 WHERE email = $3"
+        await query(updateUser, [name, hashedPassword, email])
+
+        return { success: true, message: "Account created successfully, you can now log in" }
+
     } catch (error) {
         console.log(error)
-        return {success: false, message: "Server error, please try again later"}
+        return { success: false, message: "Server error, please try again later" }
     }
 }
 
@@ -186,6 +210,32 @@ async function sendVerificationEmail(email, pin) {
         return { success: true }
 
     } catch (error) {
+        return { success: false }
+    }
+}
+
+export async function processLogin(email, password) {
+    try {
+        const queryText = "SELECT * FROM Trading_journal_users WHERE email = $1"
+        const { rows: get_email } = await query(queryText, [email])
+        const user = get_email[0]
+
+        if (!user) {
+            throw new Error("User not found")
+        }
+
+        if (user.password == "socials") {
+            throw new Error("Invalid password")
+        }
+
+        const verify_password = await bcrypt.compare(password, user.password)
+        if (!verify_password) {
+            return { success: false }
+        }
+        return { success: true, user }
+    }
+    catch (error) {
+        console.error("Error during authentication:", error)
         return { success: false }
     }
 }

@@ -54,8 +54,8 @@ export default function Header() {
                         <MenuIcon className="block" size={16} />
                     </Button>
                     <Link href="/login">
-                        <Button variant="ghost" className="hidden lg:block cursor-pointer dark:bg-zinc-900 bg-zinc-100" size="icon">
-                            <User className="block" size={16} />
+                        <Button variant="ghost" className="hidden lg:block cursor-pointer dark:bg-zinc-900 bg-zinc-100 px-auto" size="icon">
+                            <User className="block mx-auto" size={16} />
                         </Button>
                     </Link>
                 </div>
