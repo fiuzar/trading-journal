@@ -5,7 +5,7 @@ import Image from "next/image"
 export default function Hero({
 	heading = "Trade Smarter. Manage Risk. Stay Consistent",
 	description = "Your all-in-one trading journal and risk manager built to help you survive prop firms and grow consistently as a trader.",
-	imageSrc = "/img/pip_hero_1.jpg",
+	imageSrc = "/img/main_hero.png",
 	imageAlt = "pip",
 }) {
 	return (
@@ -39,11 +39,11 @@ export default function Hero({
 						</div>
 					</div>
 					<Image
-						width={500}
-						height={500}
+						width={1000}
+						height={1000}
 						src={imageSrc}
 						alt={imageAlt}
-						className="mx-auto h-full max-h-[524px] w-full max-w-5xl rounded-2xl object-cover"
+						className="mx-auto h-auto w-full max-w-5xl rounded-2xl"
 					/>
 				</div>
 			</div>

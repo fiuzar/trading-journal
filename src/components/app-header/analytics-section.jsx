@@ -141,7 +141,7 @@ export default function AnalyticsSection() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-2">
-                <Card className={`py-1 px-1`}>
+                <Card className={`py-1 px-1 h-80`}>
                     <h3 className="text-md font-semibold px-2">Profit/Loss</h3>
                 </Card>
                 <Card className={`py-1 px-1`}>
