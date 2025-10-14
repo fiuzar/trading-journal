@@ -151,7 +151,7 @@ export default function CreateTradeAccount() {
                             </Label>
                             <Label className="mb-3 block">
                                 <span className="block w-full pb-2">Max Total Loss % *</span>
-                                <Input type="number" value={rules.max_total_loss} onChange={(e) => add_rules("max_total_loss", e.target.value)} className={`block w-full`} placeholder="e.g. 1" />
+                                <Input type="number" value={rules.max_total_loss} onChange={(e) => add_rules("max_total_loss", e.target.value)} className={`block w-full`} placeholder="e.g. 10" />
                             </Label>
 
                             <Label className="mb-3 block">

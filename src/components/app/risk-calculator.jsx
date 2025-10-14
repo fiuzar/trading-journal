@@ -13,7 +13,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from ".
 import { symbols } from "@/lib/symbols";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea";
+import { Card } from "../ui/card";
 
 import { Calculator } from "lucide-react"
 import { useEffect, useState } from "react";
@@ -39,24 +39,37 @@ export default function RiskCalculator() {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className={`border-b pb-4`}>Log A Trade</DialogTitle>
+                    <DialogTitle className={`border-b pb-4`}>Risk Calculator</DialogTitle>
                     <div className="py-3 h-[70vh] overflow-y-auto pr-3">
 
-                        <Select className="w-full block" defaultValue={pair} onValueChange={(e) => setPair(e.target.value)}>
-                            <SelectTrigger className={`w-full`}>
-                                    Select Symbol
-                            </SelectTrigger>
-                            <SelectContent>
-                                {symbols.map((symbol, idx) => (
-                                    <SelectItem key={idx} value={symbol.value}>{symbol.label}</SelectItem>
-                                ))}
-                                <SelectItem value="OTHER">Other</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        <h3 className="text-md my-3 mb-4">Risk Management</h3>
-
                         <div className="grid grid-cols-2 gap-2">
+
+                            <Select className="w-full block" defaultValue={pair} onValueChange={(e) => setPair(e.target.value)}>
+                                <SelectTrigger className={`w-full`}>
+                                    Select Symbol
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {symbols.map((symbol, idx) => (
+                                        <SelectItem key={idx} value={symbol.value}>{symbol.label}</SelectItem>
+                                    ))}
+                                    <SelectItem value="OTHER">Other</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            <Select className="w-full block" defaultValue={pair} onValueChange={(e) => setPair(e.target.value)}>
+                                <SelectTrigger className={`w-full`}>
+                                    Account
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {symbols.map((symbol, idx) => (
+                                        <SelectItem key={idx} value={symbol.value}>{symbol.label}</SelectItem>
+                                    ))}
+                                    <SelectItem value="OTHER">Other</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2 mt-10">
                             <Label className="mb-3 block">
                                 <span className="block w-full pb-2">Entry Price</span>
                                 <Input type="text" className={`block w-full`} placeholder="Entry Price" />
@@ -78,28 +91,36 @@ export default function RiskCalculator() {
                             </Label>
                         </div>
                         
-                        <h3 className="text-md my-3 mb-4">Trade Basics</h3>
-
-                        <div className="grid grid-cols-2 gap-2 w-full">
-                            <Label className="mb-3 block">
-                                <span className="block w-full pb-2">Direction</span>
-                                <Input type="text" className={`block w-full`} placeholder="buy/sell" />
-                            </Label>
-
-                            <Label className="mb-3 block">
-                                <span className="block w-full pb-2">Lot Size</span>
-                                <Input type="text" className={`block w-full`} placeholder="Lot Size" />
-                            </Label>
-                        </div>
-
-                        <h3 className="text-md my-3 mb-4">Quick Notes</h3>
-                        <div className="w-full">
-                            <Textarea placeholder="Quick notes about the trade..." className="resize-none"></Textarea>
-                        </div>
-
+                        <Card className="my-5 grid gap-y-1 p-3">
+                            <div className="flex justify-between">
+                                <span>Risk Amount</span>
+                                <span>$500</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Units</span>
+                                <span>$500</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Standard Lots</span>
+                                <span>$500</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Mini Lots</span>
+                                <span>$500</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Micro Lots</span>
+                                <span>$500</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Pip Value per Lot</span>
+                                <span>$500</span>
+                            </div>
+                        </Card>
                     </div>
-                    <DialogFooter>
-                        <Button className={`px-12 bg-green-800 text-white font-medium hover:text-black cursor-pointer`}>Log</Button>
+                    <DialogFooter>                
+                            <Button variant={`outline`} className={`cursor-pointer text-white block mr-2`}>Calculate</Button>
+                            <Button className={`cursor-pointer bg-green-700 text-white block`}>Log Trade</Button>        
                     </DialogFooter>
                 </DialogHeader>
             </DialogContent>
