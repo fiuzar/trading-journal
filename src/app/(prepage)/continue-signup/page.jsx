@@ -1,8 +1,8 @@
 import { VerifyEmailForm } from "@/components/root/verfy-email-form"
 
 export const metadata = {
-    title: "Continue Sign Up - Small Pips",
-    description: "Continue your sign up process for Small Pips.",
+    title: "Complete Your Profile | Customize Your Trading Experience",
+    description: "Finish setting up your profile to personalize your trading journal. Set your trading goals, choose preferred pairs and unlock analytics tailored to your style.",
 }
 
 export default function ContinueSignUp() {

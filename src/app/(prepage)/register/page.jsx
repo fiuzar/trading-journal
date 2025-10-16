@@ -1,8 +1,8 @@
 import { RegisterForm } from "@/components/root/register-form"
 
 export const metadata = {
-    title: 'Register - Pip',
-    description: 'Register your Account on Small Pips.',
+    title: 'Create an Account | Start your free trading journal today',
+    description: 'Join thousands of traders building consistency and discipline. Create a free account to start logging trades, managing risk and improving your trading performance.',
 }
 
 export default function LoginPage() {

@@ -1,8 +1,8 @@
 import { LoginForm } from "@/components/root/login-form"
 
 export const metadata = {
-	title: 'Login - Pip',
-	description: 'Login to access your account on MyApp.',
+	title: 'Log In | Access Your Trading Journal and Dashboard',
+	description: 'Log in to your trading journal to manage trades, review performance and track your journey toward prop firm rediness. Secure and fast access to your personal dashboard.',
 }
 
 export default function LoginPage() {

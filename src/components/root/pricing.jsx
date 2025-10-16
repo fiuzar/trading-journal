@@ -9,71 +9,6 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 
-import Link from "next/link"
-
-const pricing = [
-    {
-        plan: "Free Forever",
-        amount: 0.00,
-        description: "Perfect for new traders who want to develop structure before risking capital",
-        features: [
-            "1 trading account workspace",
-            "Manual trade journal",
-            "Basic risk calculator",
-            "Rule tracker (daily loss, max DD, target)",
-            "Monthly Analytics summary",
-            "Access to the trader community"
-        ],
-        button: "Start Free "
-    },
-    {
-        plan: "Pro Plan",
-        amount: 9.99,
-        description: "For traders ready to treat thier trading like a business",
-        previous: "Everything in Free, plus:",
-        features: [
-            "Unlimited Trading accounts",
-            "MT% trade import/auto sync",
-            "Advanced risk Manager",
-            "Trade analytics dashboard",
-            "AI-driven trade insights",
-            "Export reports"
-        ],
-        button: "Subscribe"
-    },
-    {
-        plan: "Elite Plan",
-        amount: 29.99,
-        description: "For traders preparing for their next prop firm evaluation",
-        previous: "Everything in Pro, plus:",
-        features: [
-            "Prop firm challenge simulator",
-            "Real-time rule breach alerts",
-            "Custom rule templates",
-            "AI Challenge Pass Probability Indicator",
-            "Broker integration for live challenge",
-            "Challenge milestone dashboard",
-            "Verified Trader profile badge"
-        ],
-        button: "Subscribe"
-    },
-    {
-        plan: "Funding Accelarator",
-        amount: 49.99,
-        description: "For serious traders aiming for their first or next funded payout",
-        previous: "Everything in Elite, plus:",
-        features: [
-            "30-day funded prep plan",
-            "Rule simulation enforcement (Prop-firm style)",
-            "Prop firm database (verified, trusted, legit)",
-            "Private leaderboard & community spotlight",
-            "Monthly Analytics summary",
-            "Access to the trader community"
-        ],
-        button: "Subscribe"
-    },
-]
-
 
 export default function PricingComponent({
     title = "Choose Your Path to Profitability",
@@ -86,47 +21,48 @@ export default function PricingComponent({
             yearlyPrice: "$0",
             features: [
                 "1 trading account workspace",
-                "Manual trade journal",
-                "Basic risk calculator",
-                "Rule tracker (daily loss, max DD, target)",
+                "Basic trade journal",
+                "Risk calculator",
+                "Simple Analytics (win rate, RR, P/L %)",
                 "Monthly Analytics summary",
-                "Access to the trader community"
+                "Access to the trader community",
+                "Limited AI insights (5 per month)"
             ],
             buttonText: "Get Started",
         },
         {
             name: "Pro Plan",
             badge: "Pro Plan",
-            monthlyPrice: "$9.99",
-            yearlyPrice: "$99.99",
+            monthlyPrice: "$19.99",
+            yearlyPrice: "$199.99",
             features: [
                 "Everything in FREE",
                 "Unlimited Trading accounts",
-                "MT% trade import/auto sync",
-                "Advanced risk Manager",
-                "Trade analytics dashboard",
-                "AI-driven trade insights",
-                "Export reports"
+                "Full Journal with auto insights",
+                "AI Trade Reviewer",
+                "Prop Firm Mode",
+                "Priority Support",
+                "20 AI insights per month"
             ],
             buttonText: "Subscribe",
+            isPopular: true,
         },
         {
             name: "Elite Plan",
             badge: "Elite Plan",
-            monthlyPrice: "$29.99",
-            yearlyPrice: "$299.99",
+            monthlyPrice: "$49.99",
+            yearlyPrice: "$499.99",
             features: [
                 "Everything in PRO",
-                "Prop firm challenge simulator",
-                "Real-time rule breach alerts",
-                "Custom rule templates",
-                "AI Challenge Pass Probability Indicator",
-                "Broker integration for live challenge",
-                "Challenge milestone dashboard",
-                "Verified Trader profile badge"
+                "Advanced AI insights (unlimited + pattern recognition)",
+                "Smart Growth Planner",
+                "Auto Trade Sync (via broker/prop firm)",
+                "AI Strategy Coach",
+                "Verified Trader Badge",
+                "Exclusive trader leaderboard & networking lounge",
+                "Priority access to future prop partnership"
             ],
             buttonText: "Subscribe",
-            isPopular: true,
         },
     ],
     className = "",

@@ -39,7 +39,7 @@ export default function Header() {
                     <div className="lg:flex hidden lg:justify-center flex-auto items-center gap-5 text-sm font-medium text-black dark:text-muted-foreground">
                         <Link href="/features" className="hover:text-primary transition-colors p-2">Features</Link>
                         <Link href="/install" className="hover:text-primary transition-colors p-2">Install App</Link>
-                        <Link href="/terms" className="hover:text-primary transition-colors p-2">Terms</Link>
+                        <Link href="/" className="hover:text-primary transition-colors p-2">About Us</Link>
                     </div>
                 </div>
 
