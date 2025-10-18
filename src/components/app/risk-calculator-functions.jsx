@@ -21,7 +21,7 @@ export async function calculateRiskSize(
     }
 
     // --- 2. Auto-detect pip size ---
-    let { pipSize, pipValuePerLot, pair } = await getSymbolDetails(pair)
+    let { pipSize, pipValuePerLot } = await getSymbolDetails(pair)
 
     if (pipSize == null) {
         pipSize = pair.includes("JPY") ? 0.01 : 0.0001;
@@ -121,7 +121,6 @@ export async function getSymbolDetails(pair) {
     }
 
     return {
-        pair: symbol.pair,
         pipSize: symbol.pipSize,
         pipValuePerLot: symbol.pipValuePerLot
     }
