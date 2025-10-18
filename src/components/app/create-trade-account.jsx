@@ -10,10 +10,8 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../ui/select";
-import { symbols } from "@/lib/symbols";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea";
 
 import { Logs, Plus, X } from "lucide-react"
 import { useEffect, useState } from "react";
@@ -30,6 +28,19 @@ export default function CreateTradeAccount() {
     const [rules, setRules] = useState({ max_risk_per_trade: "", max_daily_loss: "", max_total_loss: "", profit_target: "" })
     const [strategy, setStrategy] = useState([])
     const [strategySingle, setStrategySingle] = useState("")
+
+    const [isDisabled, setIsDisabled] = useState(true)
+
+    useEffect(() => {
+
+        if (!accountName || !startingBalance || !currency || !rules) {
+            setIsDisabled(true)
+        }
+        else {
+            setIsDisabled(false)
+        }
+
+    }, [accountName, startingBalance, currency, rules])
 
     function add_strategy() {
         if (strategySingle) {
@@ -55,9 +66,9 @@ export default function CreateTradeAccount() {
     }
 
     async function create_account() {
-        const {success, message} = await add_trade_account(accountName, startingBalance, leverage, currency, rules, strategy)
+        const { success, message } = await add_trade_account(accountName, startingBalance, leverage, currency, rules, strategy)
 
-        if(success){
+        if (success) {
             toast(<div className="text-green-700">{message}</div>)
         }
         else {
@@ -190,7 +201,7 @@ export default function CreateTradeAccount() {
 
                     </div>
                     <DialogFooter>
-                        <Button onClick={create_account} className={`px-12 bg-green-800 text-white font-medium hover:text-black cursor-pointer`}>Log</Button>
+                        <Button disabled={isDisabled} onClick={create_account} className={`px-12 bg-green-800 text-white font-medium hover:text-black cursor-pointer`}>Log</Button>
                     </DialogFooter>
                 </DialogHeader>
             </DialogContent>

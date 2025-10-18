@@ -138,7 +138,6 @@ function TestimonialCard({ rating, text, name, role, img }) {
 
             {/* User */}
             <div className="flex items-center gap-5 border-t border-solid border-gray-200 pt-5">
-                <img className="rounded-full h-10 w-10 object-cover" src={img} alt={name} />
                 <div>
                     <h5 className="text-white font-medium transition-all duration-500 mb-1">{name}</h5>
                     <span className="text-sm leading-4 text-gray-500">{role}</span>

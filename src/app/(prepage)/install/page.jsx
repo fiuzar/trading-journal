@@ -39,8 +39,11 @@ export default function InstallPage() {
                     </p>
                 </div>
                 <div className="mx-auto mt-16 max-w-3xl sm:mt-20 lg:mt-24 lg:max-w-5xl">
-                    <div className="md:flex flex-row-reverse gap-4 justify-between align-middle">
-                        <div className="w-1/2">
+                    <div className="md:flex gap-4 justify-between align-middle">
+                        <div className="md:w-1/2">
+                            <img src="/img/pip_hero.jpg" />
+                        </div>
+                        <div className="md:w-1/2">
                             <h2 className="text-2xl font-bold mb-4">How To Install</h2>
                             <p>Our web app works seamlessly across devices. Install it once and get instant access to your trading dashboard, journal and risk tools even offline</p>
 
@@ -59,9 +62,6 @@ export default function InstallPage() {
                                 <li>Select Install App".</li>
                                 <li>Done! You can now open the app like a native trading tool</li>
                             </ul>
-                        </div>
-                        <div className="w-1/2">
-                            <img src="/img/pip_hero.jpg" />
                         </div>
                     </div>
                 </div>

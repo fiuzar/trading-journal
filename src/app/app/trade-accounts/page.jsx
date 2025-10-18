@@ -12,7 +12,7 @@ import Link from "next/link"
 
 export default function TradeAccountsPage() {
 
-    const [tradeAccounts, setTradeAccounts] = useState([])
+    const [tradeAccounts, setTradeAccounts] = useState({})
 
     useEffect(() => {
         async function get_trade_acc() {
