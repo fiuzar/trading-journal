@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import * as React from "react"
 import {
   IconCamera,
@@ -128,7 +130,7 @@ const data = {
     },
     {
       name: "Whatsapp Community",
-      url: "https://chat.whatsapp.com/K6YbX6YbX6YbX6YbX6YbX6",
+      url: "https://chat.whatsapp.com/K6YbX6YbX6YbX6YbX6YbX",
       icon: IconBrandWhatsapp,
     },
     // {
@@ -148,10 +150,10 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="#">
+              <Link href="#">
                 <Image src="/img/logo.png" alt="Pip Logo" width={32} height={32} className="rounded-sm" />
                 <span className="text-base font-semibold">Pip</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
