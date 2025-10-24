@@ -18,7 +18,8 @@ import { Card } from "../ui/card";
 import { Calculator } from "lucide-react"
 import { useEffect, useState } from "react";
 
-import { get_trade_accounts } from "@/server-actions/create-trade-account-actions";
+import { useContext } from "react";
+import { TradeAccountContext } from "@/server-actions/userContext";
 import { calculateRiskSize } from "./risk-calculator-functions"
 
 export default function RiskCalculator() {
@@ -30,22 +31,10 @@ export default function RiskCalculator() {
     const [stopLoss, setStopLoss] = useState("")
     const [takeProfit, setTakeProfit] = useState("")
     const [riskPercentage, setRiskPercentage] = useState(0)
-    const [tradeAccounts, setTradeAccounts] = useState({})
+    const {tradeAccounts, setTradeAccounts} = useContext(TradeAccountContext)
     const [riskDetails, setRiskDetails] = useState({ riskAmount: null, standard_lots: null, mini_lots: null, micro_lots: null, pip_value_per_lot: null, rr: null })
 
     const [isDisabled, setIsDisabled] = useState(true)
-
-    useEffect(() => {
-        async function get_trade_acc() {
-            const { success, accounts } = await get_trade_accounts()
-
-            if (success) {
-                setTradeAccounts(accounts[0])
-            }
-        }
-
-        get_trade_acc()
-    }, [])
 
     useEffect(() => {
 

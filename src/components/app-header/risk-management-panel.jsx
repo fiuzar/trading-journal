@@ -7,14 +7,13 @@ export default function RiskManagementPanel({className}) {
         <div className={className}>
             <h2 className="text-xl font-bold mb-4">Alerts</h2>
             <div className="space-y-2">
-
-                <Alert variant="destructive">
-                    <AlertTitle>High Risk Trade</AlertTitle>
-                    <AlertDescription>Your last trade exceeded your risk threshold.</AlertDescription>
-                </Alert>
                 <Alert variant="warning">
                     <AlertTitle>Review Open Trades</AlertTitle>
-                    <AlertDescription>You have open trades that need your attention.</AlertDescription>
+                    <AlertDescription>You have 2 open trades that need your attention.</AlertDescription>
+                </Alert>
+                <Alert variant="destructive">
+                    <AlertTitle>High Risk Trade</AlertTitle>
+                    <AlertDescription>Your last trade of 0.01 on BTCUSD did not exceeded your risk threshold. (Cleared)</AlertDescription>
                 </Alert>
                 <Alert variant="info">
                     <AlertTitle>Weekly Summary Available</AlertTitle>

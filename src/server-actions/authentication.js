@@ -1,6 +1,6 @@
 "use server"
 
-import { signIn } from "@/auth"
+import { signIn, auth } from "@/auth"
 import { query } from "@/dbh"
 import nodemailer from "nodemailer"
 import bcrypt from "bcryptjs"
@@ -25,7 +25,7 @@ export async function credentialsAction(main_email, main_password) {
         try {
             await signIn("credentials", { id: user.id, name: user.name, email, redirect: false })
 
-            return {success: true, message: "Login successful, redirecting ..."}
+            return { success: true, message: "Login successful, redirecting ..." }
 
         } catch (error) {
             return { success: false, message: "Invalid email/password" }
@@ -216,7 +216,7 @@ async function sendVerificationEmail(email, pin) {
 
 export async function processLogin(email, password) {
     try {
-        const queryText = "SELECT * FROM Trading_journal_users WHERE email = $1"
+        const queryText = "SELECT * FROM trading_journal_users WHERE email = $1"
         const { rows: get_email } = await query(queryText, [email])
         const user = get_email[0]
 
@@ -237,5 +237,31 @@ export async function processLogin(email, password) {
     catch (error) {
         console.error("Error during authentication:", error)
         return { success: false }
+    }
+}
+
+export async function getUserDetails() {
+    const session = await auth()
+
+    if (!session?.user?.id) {
+        return { success: false, message: "No session, login to fix issue" }
+    }
+
+    const user_id = session?.user?.id
+
+    try {
+        const get_userDetails = "SELECT name, email FROM trading_journal_users WHERE id = $1"
+        const query_userDetails = await query(get_userDetails, [user_id])
+        const user_details = query_userDetails.rows[0]
+
+        if (user_details) {
+            return { success: true, userDetails: user_details }
+        }
+        else {
+            return { success: false, message: "No user found" }
+        }
+    }
+    catch (err) {
+        return { success: false, message: "Server error, please try again later" }
     }
 }

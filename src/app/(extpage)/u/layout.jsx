@@ -4,6 +4,9 @@ import { UserContext, TradeAccountContext } from "@/server-actions/userContext"
 import { getUserDetails } from "@/server-actions/authentication"
 import { get_trade_accounts } from "@/server-actions/create-trade-account-actions"
 
+import Header from "@/components/root/header"
+import Footer from "@/components/root/footer"
+
 import { AppSidebar } from "@/components/app-header/app-sidebar"
 import { SiteHeader } from "@/components/app-header/site-header"
 import {
@@ -14,12 +17,11 @@ import {
 import { Toaster } from "@/components/ui/sonner"
 import { useEffect, useState } from "react"
 
-import { useRouter } from "next/navigation"
-
-export default function AppLayout({ children }) {
-    const router = useRouter()
+export default function UPage({ children }) {
     const [user, setUser] = useState({})
     const [accounts, setAccounts] = useState([])
+
+    const [isLogged, setIsLogged] = useState(false)
 
     useEffect(() => {
         async function runPreliminaries() {
@@ -29,7 +31,7 @@ export default function AppLayout({ children }) {
                 setUser(userDetails)
             }
             else {
-                throw new Error("Failed to load user details")
+
             }
 
             let { success: trade_success, accounts: trade_accounts, message: trade_message } = await get_trade_accounts()
@@ -45,7 +47,7 @@ export default function AppLayout({ children }) {
         runPreliminaries()
     }, [])
 
-    return (
+    if (isLogged) {
         <UserContext.Provider value={{ user, setUser }}>
             <TradeAccountContext.Provider value={{ tradeAccounts: accounts, setTradeAccounts: setAccounts }}>
                 <SidebarProvider
@@ -67,5 +69,16 @@ export default function AppLayout({ children }) {
                 </SidebarProvider>
             </TradeAccountContext.Provider>
         </UserContext.Provider>
-    )
+    }
+    else {
+        return (
+            <>
+                <Header />
+                <div className="py-3">
+                    {children}
+                </div>
+                <Footer />
+            </>
+        )
+    }
 }

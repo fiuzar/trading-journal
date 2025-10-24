@@ -18,85 +18,84 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Total Balance</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            $250
+            $1526.88
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className="text-green-700">
               <IconTrendingUp />
-              +10%
+              +24%
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        {/* <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Steady performance increase <IconTrendingUp className="size-4" />
           </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Win Rate</CardDescription>
+          <CardDescription>Profit Factor</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            33.5%
+            4.01%
           </CardTitle>
           <CardAction>
-            <Badge variant="outline" className={`text-red-700`}>
-              <IconTrendingDown />
-              -2%
+            <Badge variant="outline" className={`text-green-700`}>
+              <IconTrendingUp />
+              +1.01%
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        {/* <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Trending up this month <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">
             Visitors for the last 6 months
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Total Trades Taken</CardDescription>
+          <CardDescription>Total Lots Traded</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            10
+            1.23
           </CardTitle>
           <CardAction>
             <Badge variant="outline" className={`text-red-700`}>
               <IconTrendingDown />
-              -2%
+              -0.1%
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        {/* <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Down 20% this period <IconTrendingDown className="size-4" />
           </div>
           <div className="text-muted-foreground">
             Acquisition needs attention
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Average R:R Ratio</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            1 : 3
+            1 : 3.3
           </CardTitle>
           <CardAction>
-            <Badge variant="outline" className={`text-red-700`}>
-              <IconTrendingDown />
-              -2.5%
+            <Badge variant="outline" className={`text-green-700`}>
+              <IconTrendingUp />
+              +0.2%
             </Badge>
           </CardAction>
         </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        {/* <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
             Strong user retention <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">Engagement exceed targets</div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </div>
   );
