@@ -94,3 +94,36 @@ export async function getUserTradeLogs(filters) {
     }
 
 }
+
+export async function CloseTradeLog(tradeId, closePrice, closeNotes) {
+    if (!tradeId || !closePrice) {
+        return { success: false, message: "Missing required fields" }
+    }
+
+    const session = await auth();
+    if (!session?.user) {
+        return { success: false, message: "Session not found, log in again" }
+    }
+    const userId = session.user.id;
+
+    try {
+        const result = await query(
+            `
+                UPDATE trade_logs
+                SET close_price = $1,
+                    close_notes = $2,
+                    closed_at = NOW()
+                WHERE trade_id = $3 AND user_id = $4
+                RETURNING *
+            `,
+            [closePrice, closeNotes, tradeId, userId]
+        );
+        const updatedTrade = result.rows[0];
+
+        return { success: true, updatedTrade, message: "Trade closed successfully" };
+    }
+    catch (error) {
+        console.error("Error closing trade log:", error);
+        return { success: false, message: "Server error, please try again later" };
+    }
+}

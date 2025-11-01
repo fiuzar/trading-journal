@@ -1,5 +1,7 @@
 'use client'
 
+import CloseTrade from "./close-trade";
+
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "../ui/card";
 import Link from "next/link"
@@ -35,10 +37,8 @@ export function TradeLogsTable({ logs }) {
                             <TableCell>{tradelog.lot_size}</TableCell>
                             <TableCell>{tradelog.risk_reward_ratio}</TableCell>
                             <TableCell>
-                            <Button size={"icon"} className="bg-muted border cursor-pointer" variant={'ghost'}>
-                                <X />
-                            </Button>
-                        </TableCell>
+                                <CloseTrade tradeDetail={JSON.stringify(tradelog)} />
+                            </TableCell>
                         </TableRow>
                     ))}
                     {/* <TableRow className="bg-red-800/30">
